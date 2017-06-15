@@ -199,7 +199,7 @@ class LaneFinding():
         cv2.putText(undistorted,
                     'Curvature: Left: {0:.1f}m Right {1:.1f}m | Offset: {2:.2f}m'.format(left_curv, right_curv, offset),
                     (10,50), font, 1, (255,255,255), 2)
-        return undistorted
+        #return undistorted
         top = np.hstack([
             cv2.resize(undistorted, two_thirds),
             np.vstack([
