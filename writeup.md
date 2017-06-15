@@ -56,7 +56,7 @@ All image processing code, including the undistortion is located in its own clas
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines 102 through 111 in `LaneFinding.py`).  Here's an example of my output for this step.
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines 114 through 138 in `LaneFinding.py`).  Here's an example of my output for this step.
 
 ![A selection of test images with the resulting color mask and sobel mask.][image3]
 
@@ -66,7 +66,7 @@ The final mask looks like this:
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform is located in the method `ImageProcessing::perspective_transform`, which appears in lines 124 in the file `LaneFinding.py`.  The `perspective_transform()` function takes as inputs an image (`img`). The source and destination points are members of the class `ImageProcessing`. I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform is located in the method `ImageProcessing::perspective_transform`, which appears in lines 151 in the file `LaneFinding.py`.  The `perspective_transform()` function takes as inputs an image (`img`). The source and destination points are members of the class `ImageProcessing`. I chose the hardcode the source and destination points in the following manner:
 
 ```python
 source_points = np.array([(608, 440), (203, 720), (1127, 720), (676, 440)], dtype=np.float32)
@@ -88,8 +88,8 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-I used the examples provided in the lesson, using a sliding window fit (see `LaneFinding::sliding_window_fit` in `LaneFinding.py`, line #)
-to find an initial estimate for left and right lane, followed by a re-fit procedure (see `LaneFinding::refit` in `LaneFinding.py`, line #).
+I used the examples provided in the lesson, using a sliding window fit (see `LaneFinding::sliding_window_fit` in `LaneFinding.py`, line 242)
+to find an initial estimate for left and right lane, followed by a re-fit procedure (see `LaneFinding::refit` in `LaneFinding.py`, line 320).
 To fit a polynom through the extracted pixels, I use a rotated and shifted coordinate system.
 As in the lesson, I fit a second order polynomial w.r.t. _y_, i.e. _f(y)_ instead of _f(x)_, but moved the origin of the coordinate system to the lower left pixel, with
 _x_ pointing to the right and _y_ pointing upwards. This way, using the equation _f(y) = a*x^2 + b*x + c_, we end up having a parameter _c_ describing
@@ -101,12 +101,12 @@ Looking at professional systems like MobilEye, one finds that it is even possibl
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-The radius of curvature is calculated within the `Line` class and is updated each time a new fit is processed (see line # of `LaneFinding.py`).
-The offset is calculated in `LaneFinding::calculate_offset` (line # of `LaneFinding.py`). The calculated offset is calculated in the automotive coordiate system with the _x_-axis pointing forward and _y_ pointing to the left.
+The radius of curvature is calculated within the `Line` class and is updated each time a new fit is processed (see line 33 of `LaneFinding.py`).
+The offset is calculated in `LaneFinding::calculate_offset` (line 216 of `LaneFinding.py`). The calculated offset is calculated in the automotive coordiate system with the _x_-axis pointing forward and _y_ pointing to the left.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `LaneFinding.py` in the function `Lanefinding::process_image()`.  Here is an example of my result on a test image:
+I implemented this step in lines 192 through 214, as well as lines 221 to 240 in my code in `LaneFinding.py` in the function `Lanefinding::process_image()`.  Here is an example of my result on a test image:
 
 ![Output image with curvature and offset rendered and the fitted lanes overlayed][image6]
 
