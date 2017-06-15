@@ -124,4 +124,15 @@ Here's a [link to my video result](./project_video_processed.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The current implementation works well for scenarios like the `project_video.mp4` with equally illuminated roads and smooth paving.
+The two challange videos currently do not work well. Several optimizations and improvements can be identified:
+ * Currently, there is no checking for the validity of the lanes. A procedure might be implemented to check the
+   quality and existence of each lane. In case of an invalid lane, the more robust sliding window fit could be applied to obtain a new initial state.
+ * For szenarios exhibiting shaded areas as well as differently colored materials it might be possible to
+   tune the thresholds and parameters further.
+ * Incorporation the velocity and yaw-rate of the car would allow to compensate for the movement of the car between two consecutive frames. For instance,
+   the lateral offset of the lane and the angle relative to the car might be updated by integrating the motion of the vehicle from velocity and yaw-rate.
+ * Depending on the function that should be realized using this lane estimation, it might be important to know the
+   type (dashed, continous, etc.) and the color of the lane line. Additionally, the knowledge about next lanes might be important, for instance
+   for a system making automated lane changes.
+
